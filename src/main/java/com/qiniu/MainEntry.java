@@ -20,5 +20,4 @@ public class MainEntry {
             System.out.println("Start server error:" + ex.getMessage());
         }
     }
-
 }

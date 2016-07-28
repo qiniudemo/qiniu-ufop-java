@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: lib/gson-2.6.2.jar lib/commons-codec-1.10.jar
+Main-Class: com.qiniu.MainEntry
+
