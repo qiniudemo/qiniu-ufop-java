@@ -1,0 +1,7 @@
+image: ubuntu
+
+build_script:
+    - echo building...
+    - mv $RESOURCE/* .
+    - tar xzvf ./env/jdk-7u45-linux-x64.tar.gz
+run: export PATH=$PATH:./jdk1.7.0_45/bin && java -jar qufop.jar qufop.conf
