@@ -136,11 +136,37 @@ $ qufopctl upgrade qn-md5
 
 部署完毕之后，我们测试下这个实例的功能，访问 `http://devtools.qiniu.com/qiniu.png?qn-md5` 则得到文件的md5值。
 
-对于部署在自己账号下的客户，请使用自己空间绑定的域名去触发 UFOP 的调用。
+对于部署在自己账号下的客户，请使用自己空间绑定的域名去触发 UFOP 的调用。另外 UFOP 既可以通过实时处理的方式触发，也可以通过发送 PFOP 请求的方式触发，这里的分界点就在于如果你的程序处理时间很长，最好使用持久化（PFOP）的处理方式。
 
 # 依赖
 
 [commons-codec](http://commons.apache.org/proper/commons-codec/)
+
+
+# 扩展
+
+本项目足够简单地描述了 UFOP 的使用，有的时候你可能希望你的 UFOP 带上自定义的参数，其实这个很容，参考[这里](http://developer.qiniu.com/article/dora/ufop/ufop-fast.html)我们可以了解到 UFOP 触发的时候可以带上自定义参数。
+
+比如我们开发一个图片合成的 UFOP，那么触发的命令格式可以是 `qn-imgcomp/<url1>/<url2>/xxxx` ，其中这里的命令转换为 UFOP 收到的 POST BODY 就是：
+
+```
+POST /uop HTTP/1.1  
+Content-Type: application/json
+{
+    "cmd": "qn-imgcomp/<url1>/<url2>/xxxx",
+    "mode": "<mode>",
+    "src": {
+        "url": "http://<host>:<port>/<path>",
+        "mimetype": "<mimetype>",
+        "fsize": <filesize>,
+        "bucket": <bucket>,
+        "key": <key>
+    }
+}
+```
+
+这个 POST BODY 里面的其他参数都是七牛的转发系统给出的。
+
 
 # 支持
 
